@@ -1,0 +1,69 @@
+1)
+	select * from marcas where ciudadM = 'barcelona'
+2)	
+	select * from clientes where ciudad = 'madrid' AND apellido = 'garcia'
+
+3)
+	select apellido,ciudad FROM clientes where ciudad ='madrid'
+
+4)
+	select apellido from clientes where ciudad ='madrid'
+
+5)
+	select distinct nombrem from marcas,coches,marco where marcas.cifm = marco.cifm and marco.CODCOCHE = coches.CODCOCHE and modelo='gtd' --for repeated values use distinct	
+
+6)
+
+	select  nombrem FROM marcas m,coches c,marco mc ,ventas v 
+	where m.cifm = mc.cifm 
+	and mc.CODCOCHE = c.CODCOCHE select apellido from clientes where ciudad ='madrid'
+	and c.CODCOCHE = v.codcoche
+	and v.color = 'rojo'
+
+7)select NOMBRECH 
+	from coches where MODELO in (select modelo from coches where NOMBRECH='cordoba')
+
+  select c2.NOMBRECH
+	from coches c1, coches c2
+	where c1.NOMBRECH ='cordoba'
+	and c1.modelo=c2.modelo
+
+8)
+select  NOMBRECH
+	from coches where NOMBRECH not in (select NOMBRECH from coches where modelo= 'gtd')
+
+select NOMBRECH from coches 
+EXCEPT
+select NOMBRECH from coches WHERE modelo = 'gtd'
+
+9)
+
+	select * FROM CONCESIONARIOS
+
+10)
+	select CIfm,dni FROM marcas,clientes where marcas.ciudadm=clientes.ciudad
+
+11)
+	select codcoche 
+	from coches,DISTRIBUCION,CONCESIONARIOS
+	where ciudadc = 'barcelona'
+	and coches.CODCOCHE = DISTRIBUCION.CODCOCHE
+	and DISTRIBUCION.CIFC = CONCESIONARIOS.CIFC
+
+12)
+select codcoche 
+	FROM coches,VENTAS,clientes,CONCESIONARIOS
+	where coches.codcoche = ventas.CODCOCHE
+	and ventas.CIFC = CONCESIONARIOS.CIFC
+	and ventas.DNI = clientes.DNI
+	and CONCESIONARIOS.CIUDADC = 'madrid'
+	and CLIENTES.CIUDAD = 'madrid'
+
+13)
+
+	select codcoche 
+	FROM coches,VENTAS,clientes,CONCESIONARIOS
+	where CONCESIONARIOS.CIUDADC = clientes.CIUDAD
+	and coches.codcoche = ventas.CODCOCHE
+	and ventas.CIFC = CONCESIONARIOS.CIFC
+	and ventas.DNI = clientes.DNI
