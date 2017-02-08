@@ -67,3 +67,55 @@ select codcoche
 	and coches.codcoche = ventas.CODCOCHE
 	and ventas.CIFC = CONCESIONARIOS.CIFC
 	and ventas.DNI = clientes.DNI
+
+14)
+	select m1.NOMBREM, m2.NOMBREM
+	from marcas m1, marcas m2
+	where m1.CIUDADM = m2.CIUDADM
+	and  m1.NOMBREM != m2.NOMBREM
+
+15)
+	select * 
+	FROM CLIENTES
+	where ciudad= 'madrid'
+16)
+
+	select DISTINCT clientes.DNI
+	FROM clientes,ventas,concesionarios
+	where clientes.DNI = ventas.DNI
+	and ventas.CIFC = CONCESIONARIOS.CIFC
+	and CONCESIONARIOS.CIUDADC = 'madrid'
+
+17)
+	select ventas.COLOR 
+	FROM ventas,concesionarios
+	where ventas.CIFC = CONCESIONARIOS.CIFC
+	and CONCESIONARIOS.NOMBREC = 'acar'
+
+18)
+
+	select coches.CODCOCHE
+	FROM coches, ventas, concesionarios
+	where coches.CODCOCHE = ventas.CODCOCHE
+	and ventas.CIFC = CONCESIONARIOS.CIFC
+	and CONCESIONARIOS.CIUDADC = 'madrid' 
+
+19)
+	select clientes.NOMBRE 
+	FROM clientes,CONCESIONARIOS,ventas
+	where clientes.DNI = ventas.DNI
+	and VENTAS.CIFC = concesionarios.CIFC
+	and concesionarios.NOMBREC = 'dcar'
+
+20)
+
+	select clientes.NOMBRE, clientes.APELLIDO --gti blanco
+	FROM clientes,ventas,COCHES
+	where clientes.dni = ventas.dni
+	and ventas.CODCOCHE = coches.CODCOCHE
+	and coches.MODELO = 'gti'
+	and ventas.color = 'blanco'
+
+21)
+
+	
