@@ -117,5 +117,35 @@ select codcoche
 	and ventas.color = 'blanco'
 
 21)
+	select Clientes.NOMBRE,Clientes.APELLIDO
+	from clientes,ventas,CONCESIONARIOS
+	where clientes.dni = ventas.dni
+	and ventas.cifc = concesionarios.cifc
+	and CONCESIONARIOS.ciudadc= 'madrid'
+	intersect
+	select Clientes.NOMBRE,Clientes.APELLIDO
+	from clientes,ventas,coches
+	where clientes.dni = ventas.dni
+	and ventas.CODCOCHE = coches.CODCOCHE
+	and coches.modelo ='gti'
 
+
+	select Clientes.NOMBRE,Clientes.APELLIDO
+	from clientes,ventas,CONCESIONARIOS,coches
+	where clientes.dni = ventas.dni
+	and ventas.cifc = concesionarios.cifc
+	and CONCESIONARIOS.ciudadc= 'madrid'
+	and ventas.CODCOCHE = coches.CODCOCHE
+	and coches.modelo ='gti'
+
+22)
+	select Clientes.NOMBRE,Clientes.APELLIDO	
+	from clientes,ventas	
+	where clientes.dni = ventas.dni
+	and ventas.color = 'blanco'
+	intersect
+	select Clientes.NOMBRE,Clientes.APELLIDO
+	from clientes,ventas
+	where clientes.dni = ventas.dni
+	and ventas.color = 'rojo'
 	
