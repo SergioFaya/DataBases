@@ -117,26 +117,14 @@ select codcoche
 	and ventas.color = 'blanco'
 
 21)
-	select Clientes.NOMBRE,Clientes.APELLIDO
-	from clientes,ventas,CONCESIONARIOS
+	select distinct Clientes.NOMBRE,Clientes.APELLIDO
+	from clientes,ventas,coches,distribucion,concesionarios
 	where clientes.dni = ventas.dni
-	and ventas.cifc = concesionarios.cifc
-	and CONCESIONARIOS.ciudadc= 'madrid'
-	intersect
-	select Clientes.NOMBRE,Clientes.APELLIDO
-	from clientes,ventas,coches
-	where clientes.dni = ventas.dni
-	and ventas.CODCOCHE = coches.CODCOCHE
+	and ventas.CIFC = concesionarios.cifc
+	and concesionarios.cifc = distribucion.cifc
+	and distribucion.codcoche = coches.CODCOCHE
 	and coches.modelo ='gti'
-
-
-	select Clientes.NOMBRE,Clientes.APELLIDO
-	from clientes,ventas,CONCESIONARIOS,coches
-	where clientes.dni = ventas.dni
-	and ventas.cifc = concesionarios.cifc
 	and CONCESIONARIOS.ciudadc= 'madrid'
-	and ventas.CODCOCHE = coches.CODCOCHE
-	and coches.modelo ='gti'
 
 22)
 	select Clientes.NOMBRE,Clientes.APELLIDO	
@@ -148,4 +136,94 @@ select codcoche
 	from clientes,ventas
 	where clientes.dni = ventas.dni
 	and ventas.color = 'rojo'
+--23
+select  clientes.DNI
+	from clientes,ventas
+	where clientes.dni = ventas.dni 
+	and ventas.cifc = 1 
+	and clientes.dni not in(
+		select clientes.DNI
+		from clientes,ventas
+		where clientes.dni = ventas.dni
+		and ventas.cifc !=1
+	)
+--24
+select clientes.nombre from clientes,ventas,concesionarios
+except
+select clientes.nombre
+	from clientes,ventas,concesionarios
+	where clientes.dni = ventas.dni
+	and ventas.cifc = concesionarios.cifc 
+	and concesionarios.CIUDADC = 'madrid'
+	and ventas.COLOR = 'rojo'
+
+--25
+select CIFC, sum(distribucion.CANTIDAD) 
+	from distribucion
+	group by cifc
+
+--sum 
+--max
+--min
+--avg
+--count
+
+--26
+select cifc, AVG(cantidad)
+	from distribucion 
+	group by cifc
+	having avg(cantidad) >10
+
+--27
+select CIFC, sum(distribucion.CANTIDAD) 
+	from distribucion
+	group by cifc
+	having (sum(distribucion.CANTIDAD) >=10
+	and sum(distribucion.CANTIDAD)<=18 )
+
 	
+select CIFC, sum(distribucion.CANTIDAD) 
+	from distribucion
+	group by cifc
+	having (sum(distribucion.CANTIDAD) BETWEEN 10 and 18)
+
+
+--28
+select count(*)
+	from marcas 
+	where marcas.CIUDADM = 'madrid'
+
+--29
+select nombre,apellido
+	from ventas,clientes,concesionarios
+	where clientes.dni = ventas.dni
+	and ventas.cifc = concesionarios.cifc
+	and CONCESIONARIOS.CIUDADC = 'madrid'
+	and clientes.NOMBRE like 'j%'
+--% --> *
+--_ --> ?
+	
+--30 
+	select nombre,apellido
+		from clientes
+		order by nombre desc
+
+--31
+select distinct clientes.*
+	from ventas,concesionarios,clientes
+	where clientes.dni = ventas.dni
+	and ventas.CIFC = concesionarios.CIFC
+	and CONCESIONARIOS.CIUDADC in (
+select concesionarios.CIUDADC 
+	from ventas,concesionarios,clientes
+	where clientes.dni = ventas.dni
+	and ventas.CIFC = concesionarios.CIFC
+	and clientes.dni =1)
+
+--32
+select cifc ,nombrec,ciudadc
+from concesionarios
+where cifc in (select cifc
+	from distribucion
+	group by cifc
+	having avg(cantidad)>(select avg(cantidad) from distribucion))
