@@ -1,0 +1,10 @@
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO BLOCKS VALUES(0,2147483647,0)
+COMMIT
+/*C2*/SET SCHEMA PUBLIC
+create table alumno\u000a(dnia VARCHAR(15), noma  varchar(15) , apella varchar(15) , domicilioa varchar(15) , f_nacimiento varchar(15), f_ingreso varchar(15), CONSTRAINT ALUMNO_PK\u0009 PRIMARY KEY(dnia))
+drop table ALUMNO
+create table alumno\u000a(dnia VARCHAR(15), noma  varchar(15) , apella varchar(15) , domicilioa varchar(15) , f_nacimiento DATE, f_ingreso DATE, CONSTRAINT ALUMNO_PK\u0009 PRIMARY KEY(dnia))
+create table carrera\u000a(codcarr varchar(15),\u000anombrec varchar(15),\u000aduracion DOUBLE,\u000aCONSTRAINT pertenece_CARRERA_pk PRIMARY KEY (codcarr))
+create table profesor\u000a(dnip varchar(15),\u000anombrep varchar(15),\u000aapellidop varchar(15),\u000adomiciliop varchar(15),\u000aCONSTRAINT califica_CARRERA_pk PRIMARY KEY (dnip))
+DISCONNECT
