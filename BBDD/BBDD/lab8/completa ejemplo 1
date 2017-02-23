@@ -1,0 +1,31 @@
+create table alumno
+(dnia VARCHAR(15), noma  varchar(15) , apella varchar(15) , domicilioa varchar(15) , f_nacimiento DATE, f_ingreso DATE, CONSTRAINT ALUMNO_PK PRIMARY KEY(dnia))
+
+drop table ASIGNATURA
+
+create table califica(
+nota DOUBLE,dnia varchar(15),dnip varchar(15), codasig varchar(15), fecha_calificacion date,
+constraint califica_ALUMNO_FK FOREIGN KEY (dnia) references alumno (dnia),
+constraint califica_ASIGNATURA_FK FOREIGN KEY (codasig) references asignatura (codasig),
+constraint califica_PROFESOR_FK FOREIGN KEY (dnip) references profesor(dnip),
+constraint califica_PK PRIMARY KEY (dnia,codasig)) 
+
+create table asignatura( 
+nomasig varchar(15), curso varchar(15), creditos integer, tipo varchar(15), codasig varchar(15), codcarr VARCHAR(15),dnip varchar(15) ,
+constraint ASIGNATURA_PK PRIMARY KEY (codasig),
+constraint pertenece_ASIGNATURA_FK FOREIGN KEY (codcarr ) references carrera,
+constraint imparte_ASIGNATURA_FK FOREIGN KEY (dnip ) references profesor )
+
+ 
+create table carrera(
+codcarr varchar(15),
+nombrec varchar(15),
+duracion DOUBLE,
+CONSTRAINT pertenece_CARRERA_pk PRIMARY KEY (codcarr)) 
+
+create table profesor
+(dnip varchar(15),
+nombrep varchar(15),
+apellidop varchar(15),
+domiciliop varchar(15),
+CONSTRAINT califica_CARRERA_pk PRIMARY KEY (dnip)) 
