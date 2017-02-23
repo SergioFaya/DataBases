@@ -1,10 +1,9 @@
-/*C1*/SET SCHEMA SYSTEM_LOBS
-INSERT INTO BLOCKS VALUES(0,2147483647,0)
-COMMIT
-/*C2*/SET SCHEMA PUBLIC
-create table alumno\u000a(dnia VARCHAR(15), noma  varchar(15) , apella varchar(15) , domicilioa varchar(15) , f_nacimiento varchar(15), f_ingreso varchar(15), CONSTRAINT ALUMNO_PK\u0009 PRIMARY KEY(dnia))
-drop table ALUMNO
-create table alumno\u000a(dnia VARCHAR(15), noma  varchar(15) , apella varchar(15) , domicilioa varchar(15) , f_nacimiento DATE, f_ingreso DATE, CONSTRAINT ALUMNO_PK\u0009 PRIMARY KEY(dnia))
-create table carrera\u000a(codcarr varchar(15),\u000anombrec varchar(15),\u000aduracion DOUBLE,\u000aCONSTRAINT pertenece_CARRERA_pk PRIMARY KEY (codcarr))
-create table profesor\u000a(dnip varchar(15),\u000anombrep varchar(15),\u000aapellidop varchar(15),\u000adomiciliop varchar(15),\u000aCONSTRAINT califica_CARRERA_pk PRIMARY KEY (dnip))
-DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+create table asignatura(nomasig varchar(15),curso varchar(15),creditos integer ,tipo varchar(15),codasig varchar(15), codcarr VARCHAR(15), \u000aconstraint ASIGNATURA_PK PRIMARY KEY (codasig),\u000aconstraint pertenece_ASIGNATURA_FK FOREIGN KEY (codcarr) references carrera)
+create table califica(\u000anota DOUBLE,dnia varchar(15),dnip varchar(15), codasig varchar(15), fecha_calificacion date,\u000aconstraint califica_ALUMNO_FK FOREIGN KEY (dnia) references alumno (dnia),\u000aconstraint califica_ASIGNATURA_FK FOREIGN KEY (codasig) references asignatura (codasig),\u000aconstraint califica_PROFESOR_FK FOREIGN KEY (dnip) references profesor(dnip),\u000aconstraint califica_PK PRIMARY KEY (dnia,codasig) )
+drop table califica
+drop table ASIGNATURA
+create table asignatura(nomasig varchar(15), curso varchar(15), creditos integer, tipo varchar(15), codasig varchar(15), codcarr VARCHAR(15), \u000aconstraint ASIGNATURA_PK PRIMARY KEY (codasig ))
+drop table ASIGNATURA
+create table asignatura( \u000anomasig varchar(15), curso varchar(15), creditos integer, tipo varchar(15), codasig varchar(15), codcarr VARCHAR(15),dnip varchar(15) ,\u000aconstraint ASIGNATURA_PK PRIMARY KEY (codasig),\u000aconstraint pertenece_ASIGNATURA_FK FOREIGN KEY (codcarr ) references carrera,\u000aconstraint imparte_ASIGNATURA_FK FOREIGN KEY (dnip ) references profesor )
+create table califica(\u000anota DOUBLE,dnia varchar(15),dnip varchar(15), codasig varchar(15), fecha_calificacion date,\u000aconstraint califica_ALUMNO_FK FOREIGN KEY (dnia) references alumno (dnia),\u000aconstraint califica_ASIGNATURA_FK FOREIGN KEY (codasig) references asignatura (codasig),\u000aconstraint califica_PROFESOR_FK FOREIGN KEY (dnip) references profesor(dnip),\u000aconstraint califica_PK PRIMARY KEY (dnia,codasig))
