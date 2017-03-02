@@ -1,0 +1,32 @@
+1) select au_nombre, au_apellido FROM autores
+2)select titulo, ventas_previstas * precio as expected_revenue from titulos
+3)select titulo from titulos where ventas_previstas  between 200 and 5000
+4)select au_nombre, au_apellido FROM autores where AU_TELEFONO is null
+5)select titulo_id,titulo,ventas_previstas from titulos where tipo in( 'BD', 'PROG') order by precio DESC
+6)select au_nombre from AUTORES where au_telefono like '456%'
+7)select avg(precio) from titulos where tipo = 'BD'
+
+  select avg(precio) from titulos 
+8)select ed_id, count(titulo) from  titulos group by (ed_id)
+
+9)select tipo ,count(tipo) as nums from titulos where tipo is not null group by (tipo)
+
+10)select tipo ,avg(precio)from titulos where f_publicacion >= '2000-01-01' group by tipo 
+
+select tipo ,avg(precio)from titulos where f_publicacion >= TO_DATE('01/01/2000', 'DD/MM/YYYY')  group by tipo 
+
+11)select tipo,count(tipo) from titulos 
+group by tipo 
+having count(tipo) > 1
+
+12)select tipo,avg(precio) from titulos 
+group by tipo 
+having avg(precio) > 35
+
+13)
+
+14)select editor_nombre, editor_apellido, orden_editores from TITULOSEDITORES t, EDITORES e where t.titulo_id = 1 and t.editor_id=e.editor_id
+
+15)
+
+16)
