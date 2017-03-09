@@ -30,3 +30,12 @@ having avg(precio) > 35
 15)
 
 16)
+
+
+
+--all authors that have written a book of every single type
+select au_id, count(distinct tipo)
+	from titulosautores ta, titulos ti
+	where ta.titulo_id = ti.titulo_id
+	group by au_id
+	having count (distinct tipo) = (select count (distinct tipo) from titulos)
