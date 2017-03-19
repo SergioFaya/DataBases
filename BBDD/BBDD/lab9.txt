@@ -1,0 +1,48 @@
+create table cine(
+codcine varchar(5) not null,
+localidad varchar(5),
+constraint CINE_PK PRIMARY KEY (codcine))
+
+create table cine3d(
+codcine varchar(5) not null,
+numsalas integer,
+constraint CINE3D_PK PRIMARY KEY (codcine),
+constraint CINE3D_CINE_FK FOREIGN KEY (codcine) references cine)
+
+create table sala(
+codsala varchar(6),
+aforo varchar(5),
+codcine varchar(5),
+constraint SALA_PK PRIMARY KEY (codsala),
+constraint SALA_CINE_FK FOREIGN KEY (codcine) references cine)
+
+create table pelicula(
+codpelicula varchar(5),
+titulo varchar(5),
+duracion varchar(5),
+tipo varchar(5),
+codpelicula_original varchar(5),
+constraint PELICULA_PK PRIMARY KEY (codpelicula),
+constraint PELICULA_PELICULAORIGINAL_FK FOREIGN KEY (codpelicula_original) references pelicula(codpelicula))
+
+create table proyecta(
+sesion varchar(5),
+fecha date,
+entradas_vendidas integer,
+codsala varchar(5),
+codpelicula varchar(5),
+constraint PROYECTA_PK PRIMARY KEY (sesion,fecha,codsala,codpelicula),
+constraint PROYECTA_SALA_FK FOREIGN KEY(codsala) references sala,
+constraint PROYECTA_PELICULA_FK FOREIGN KEY(codpelicula) references pelicula)
+
+create table entrada(
+codentrada varchar(5),
+precio decimal(1,2),
+sesion varchar(5),
+fecha date,
+codsala varchar(5),
+codpelicula varchar(5),
+constraint ENTRADA_PK PRIMARY KEY (codentrada),
+constraint ENTRADA_PROYECTA_FK FOREIGN KEY (sesion,fecha,codsala,codpelicula) references proyecta)
+
+
