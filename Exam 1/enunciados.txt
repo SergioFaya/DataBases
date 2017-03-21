@@ -1,0 +1,10 @@
+1- show all the info for the road sections that pass the terrain municipality of ther sponsor named 'staii',
+ but only if the length of the section is greater thant 7 km.
+
+2-show the names of the team that have classified first more than once, in stages wich are not mountain stages
+
+3- show the name and the category if cyclists of type 'clasicomano' that belong to teams that have a budget greater than 80000,
+and that have only taken part in mountain stages that are more than 160 km in lenght
+
+4- show the licenses and names of agents and the num,ber of incidents where these agents come as pair. the incidents should be either 'choque' or 'averia'.
+The incidents shoul occur in sectios of length greater than 5. The pair of agents should have come to more that 1 incident with these failures

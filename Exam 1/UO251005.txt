@@ -1,0 +1,56 @@
+NAME: SERGIO FAYA FERNÁNDEZ
+DNI: 09820646Z
+UO: UO251005
+QUERY 1
+Select id_road
+	from road r,tsection ts,passes p, TERRAINMUNICIPALITY t, sponsor s
+	where r.ID_ROAD = ts.ID_ROAD
+	and ts.ORDER_ROAD = p.ORDER_ROAD
+	and p.ID_ROAD = r.ID_ROAD
+	and p.ID_TM = t.ID_TM
+	and s.ID_TM = t.ID_TM
+	and s.NAME_SPONSOR = 'staii'
+	and ts.LENGTH_SECTION >=  7
+QUERY 2
+select distinct ms.num_stage
+	from MOUNTAINSTAGE ms, team t, CYCLIST c, TAKES_PART tp
+	where t.NAME_TEAM = c.NAME_TEAM 
+	and c.CYCLIST_NAME = tp.CYCLIST_NAME 
+	and tp.NUM_STAGE not in (
+		select num_stage 
+			FROM MOUNTAINSTAGE)
+	and tp.ORDER_CLASSIFICATION =1
+	group by num_stage
+	HAVING COUNT (TP.ORDER_CLASSIFICATION) > 1
+QUERY 3
+select c.CYCLIST_name  , c.CATEGORY_CYCLIST
+	from CYCLIST c ,team t, TAKES_PART TP
+	where c.TYPE_CYCLIST = 'clasicomano'
+	and t.NAME_TEAM = c.NAME_TEAM
+	and t.NAME_TEAM in (
+		select NAME_TEAM 
+			from team 
+			where budget > 80000)
+	and c.CYCLIST_NAME = tp.CYCLIST_NAME
+	and tp.NUM_STAGE in(
+		select ms.num_stage 
+			from MOUNTAINSTAGE ms ,stage s
+			where ms.NUM_STAGE = s.NUM_STAGE
+			and s.km >160)
+QUERY 4
+select distinct a1.LICENCE, a1.NAME_AGENT, count(ID_INCIDENT)
+	from agent a1, agent a2, PAIRS_WITH pw,comes c, incident i
+	where a1.LICENCE = pw.LICENCE1
+	and a2.LICENCE = pw.LICENCE2
+	and c.LICENCE1 = pw.LICENCE1
+	and c.LICENCE2 = pw.LICENCE2
+	and c.ID_INCIDENT in (
+		select distinct i.id_incident
+			from INCIDENT i,tsection ts
+			where i.ORDER_ROAD = ts.ORDER_ROAD
+			and i.ID_ROAD = ts.ID_ROAD
+			and i.DESCRIP_INCIDENT = 'choque'
+			or i.DESCRIP_INCIDENT = 'averia'
+			and ts.LENGTH_SECTION > 5)
+	group by a1.licence, a1.NAME_AGENT
+	having count(ID_INCIDENT) > 1
