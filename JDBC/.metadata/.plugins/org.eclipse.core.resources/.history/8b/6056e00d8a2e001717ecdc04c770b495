@@ -1,0 +1,16 @@
+package bbdd.lab12;
+
+import java.sql.Statement;
+import java.sql.DriverManager;
+
+
+
+public class lab13jdbc {
+	public static java.sql.Connection con;
+	public static Statement st;
+	public static void main(String[] args) {
+		con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/labdb","SA","");
+		st =con.createStatement();
+	}
+
+}
