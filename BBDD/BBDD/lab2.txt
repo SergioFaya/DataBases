@@ -16,7 +16,7 @@
 
 	select  nombrem FROM marcas m,coches c,marco mc ,ventas v 
 	where m.cifm = mc.cifm 
-	and mc.CODCOCHE = c.CODCOCHE select apellido from clientes where ciudad ='madrid'
+	and mc.CODCOCHE = c.CODCOCHE
 	and c.CODCOCHE = v.codcoche
 	and v.color = 'rojo'
 
